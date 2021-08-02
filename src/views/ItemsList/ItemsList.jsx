@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { users } from "../../api/users";
+import React from "react";
 import { useItemsList } from "./ItemsList.useItemsList";
 
 export const ItemsList = () => {

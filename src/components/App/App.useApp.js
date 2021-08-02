@@ -22,7 +22,7 @@ export const useApp = () => {
       if (!response) return setLoggedIn(false);
       history.push("/items/list");
     });
-  }, []);
+  }, [history]);
 
   return {
     checking: loggedIn === null,

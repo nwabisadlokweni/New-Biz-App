@@ -4,7 +4,6 @@ import { createGlobalStyle } from "styled-components";
 import { CssBaseline } from "@material-ui/core";
 import { StylesProvider } from "@material-ui/core/styles";
 import { Routing } from "./App.Routing";
-import { HashRouter } from "react-router-dom";
 
 const Global = createGlobalStyle`
 html {

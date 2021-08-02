@@ -4,7 +4,7 @@ const colors = {
   turquoise: "55, 130, 130",
 };
 
-const opicity = {
+const opacity = {
   none: "0",
   subtler: "10%",
   subtle: "25%",
@@ -58,20 +58,20 @@ const spacing = {
   xxl: "8rem",
 };
 
-const highlights = {
-  s: {
-    size: "0.875rem",
-  },
-  m: {
-    size: "1rem",
-  },
-  l: {
-    size: "1,125rem",
-  },
-  xl: {
-    size: "3rem",
-  },
-};
+// const highlights = {
+//   s: {
+//     size: "0.875rem",
+//   },
+//   m: {
+//     size: "1rem",
+//   },
+//   l: {
+//     size: "1,125rem",
+//   },
+//   xl: {
+//     size: "3rem",
+//   },
+// };
 
 export const images = {
   xs: "0.875rem",
