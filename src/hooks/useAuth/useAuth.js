@@ -2,7 +2,7 @@ import React, { useState, createContext, Context } from "react";
 import { users } from "../../api/users";
 import { useMount } from "react-use";
 
-const checkIfAuthToken = async () => {
+const checkIfConfirm = async () => {
   const { hash } = window.location;
   if (!hash || !hash.startsWith("#/confirmation_token")) return false;
   const tokenValue = hash.replace(/#\/confirmation_token=/, "");
@@ -10,12 +10,23 @@ const checkIfAuthToken = async () => {
   return response;
 };
 
+const checkIfRecover = async () => {
+  const { hash } = window.location;
+  if (!hash || !hash.startsWith("#/recovery_token")) return false;
+  const tokenValue = hash.replace(/#\/recovery_token=/, "");
+  const response = await users.signInWithRecovery(tokenValue);
+  return response;
+}
+
  const useAuthInsideProvider = () => {
   const [user, setUser] = useState(null);
 
   useMount(async () => {
-    const authResponse = await checkIfAuthToken();
-    if (authResponse) return setUser(authResponse);
+    const confirm = await checkIfConfirm();
+    if (confirm) return setUser(confirm);
+
+    const recovery = await checkIfRecover();
+    if (recovery) return setUser(recovery);
 
     const currentResponse = await users.getCurrent();
     if (currentResponse) return setUser(currentResponse);
@@ -51,6 +62,7 @@ const checkIfAuthToken = async () => {
     signIn,
     createAccount,
     signOut,
+    reset: users.resetPassword,
   };
 };
 
@@ -59,8 +71,9 @@ const checkIfAuthToken = async () => {
  * @property {boolean} loading
  * @property {null | false | { id: string }} user
  * @property {{email: string, password: string} => Promise<boolean, any>} signIn
- * * @property {{email: string, password: string} => Promise<boolean, any>} createAccount
+ * @property {{email: string, password: string} => Promise<boolean, any>} createAccount
  * @property {() => Promise<boolean, any>} signOut
+ * @property {() => Promise<boolean>} reset
  */
 
 /**

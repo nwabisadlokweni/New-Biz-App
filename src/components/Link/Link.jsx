@@ -40,7 +40,7 @@ export const Link = (props) => {
     );
 
   return (
-    <Base as={RouterLink} inverse={inverse} component="a" to="RouterLink">
+    <Base as={RouterLink} inverse={inverse} component="a" to={action}>
       <Text inverse={inverse} size="s">
         {children}
       </Text>

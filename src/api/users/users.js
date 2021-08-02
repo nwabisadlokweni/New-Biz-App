@@ -79,7 +79,6 @@ const createUsersApi = () => {
   /**
    * @returns {Promise<null | { id: string }>}
    */
-
   const getCurrent = async () => {
     const db = await dbRequest;
 
@@ -100,9 +99,17 @@ const createUsersApi = () => {
   };
 
   /**
+   * @param {string} email
+   * @returns {[boolean]}
+   */
+  const resetPassword = async (email) => {
+    await auth.requestPasswordRecovery(email);
+    return [true];
+  };
+
+  /**
    * @returns {Promise<[boolean, null | 'technical']>}
    */
-
   const signOut = async () => {
     try {
       const db = await dbRequest;
@@ -117,11 +124,24 @@ const createUsersApi = () => {
    * @param {string} token
    * @returns {Promise<[boolean, null | 'technical']>}
    */
-
   const signInWithToken = async (token) => {
     try {
       const db = await dbRequest;
       const { id } = await auth.confirm(token);
+
+      await db.put("meta", { id: "current", value: id });
+      await db.put("data", { id: id });
+
+      return [true, null];
+    } catch (error) {
+      return [false, "technical"];
+    }
+  };
+
+  const signInWithRecovery = async (token) => {
+    try {
+      const db = await dbRequest;
+      const { id } = await auth.recoverToken(token);
 
       await db.put("meta", { id: "current", value: id });
       await db.put("data", { id: id });
@@ -139,6 +159,8 @@ const createUsersApi = () => {
     createAccount,
     signInWithToken,
     signIn,
+    resetPassword,
+    signInWithRecovery,
   };
 };
 

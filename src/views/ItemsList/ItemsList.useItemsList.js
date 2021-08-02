@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useHistory } from "react-router-dom";
 import { users } from '../../api/users';
 
 export const useItemsList = () => {
