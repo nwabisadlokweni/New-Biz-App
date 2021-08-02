@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import validator from "validator";
-import { users } from "../../api/users";
+import { context as authContext } from "../../hooks/useAuth";
 import { useHistory } from "react-router-dom";
 
 export const useNewAccount = () => {
-  const history = useHistory();
+  const history = useHistory(); 
+  const { createAccount: authCreateAccount } = useContext(authContext)
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -23,12 +25,12 @@ export const useNewAccount = () => {
     if (password !== confirmPassword) return setAlert("mismatchPassword");
     setAlert("creating");
 
-    const [success, code] = await users.createAccount(email, password)
+    const [success, code] = await authCreateAccount(email, password)
      
       if (!success) {
         return setAlert(code)
       }
-      history.push("/items/list")
+      history.push('/auth/sent')
   };
 
   return {

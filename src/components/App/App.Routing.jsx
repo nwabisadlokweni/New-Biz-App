@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Switch, Route } from "react-router-dom";
-import { useApp } from './App.useApp'
+
+import { context as authContext } from '../../hooks/useAuth'; 
 
 import { Demo as ButtonDemo } from "../Button/Button.Demo";
 import { Demo as CheckboxDemo } from "../Checkbox/Checkbox.Demo";
@@ -16,7 +17,7 @@ import { NewAccount } from "../../views/NewAccount";
 import { ResetPassword } from "../../views/ResetPassword";
 import { SignIn } from "../../views/SignIn";
 import { EmailSent } from "../../views/EmailSent";
-import { ItemsList } from '../../views/ItemsList';
+import { ItemsList } from "../../views/ItemsList";
 
 const Demos = () => {
   return (
@@ -63,7 +64,7 @@ const Auth = () => {
         <NewAccount />
       </Route>
 
-      <Route path="/auth/signIn">
+      <Route path="/auth/signin">
         <SignIn />
       </Route>
 
@@ -86,32 +87,33 @@ const Items = () => {
       </Route>
     </Switch>
   );
-}
+};
 
 export const Routing = () => {
-  const { checking } = useApp();
-  if (checking){
-  return null;
+  const { loading, user } = useContext();
+
+  if (loading) {
+    return null;
   }
 
   return (
-      <Switch>
-        <Route path="/demo">
-          <Demos />
-        </Route>
+    <Switch>
+      <Route path="/demo">
+        <Demos />
+      </Route>
 
-        <Route path="/auth">
-          <Auth />
-        </Route>
+      <Route path="/items">
+      {user ? <Items /> :<LandingPage />}
+      </Route>
 
-        <Route path="/items">
-          <Items />
-        </Route>
+      <Route path="/auth">
+        {user ? <ItemsList /> : <Auth />}
+      </Route>
 
-        <Route path="/">
-          <LandingPage />
-        </Route>
-      </Switch>
+      <Route path="/">
+      {user ? <ItemsList /> : <LandingPage />}
+      </Route>
+    </Switch>
   );
 };
 

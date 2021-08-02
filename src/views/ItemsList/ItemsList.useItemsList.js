@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react';
-import { useHistory } from "react-router-dom";
 import { users } from '../../api/users';
 
 export const useItemsList = () => {
-    const history = useHistory();
     const [current, setCurrent] = useState('')
 
     useEffect(() => {
@@ -12,14 +10,13 @@ export const useItemsList = () => {
             setCurrent(response)
         })
     })
-const signOff = async () => {
-    users.signOff();
-    return history.push('/')
+const signOut = async () => {
+    users.signOut();
 }
 
 return {
     current,
-    signOff,
+    signOut,
 
 }
 }

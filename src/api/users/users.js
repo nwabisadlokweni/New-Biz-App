@@ -39,6 +39,11 @@ const createUsersApi = () => {
       ) {
         return [false, "noAccount"];
       }
+      if (
+        errorAsString === "JSONHTTPError: invalid_grant: Email not confirmed"
+      ) {
+        return [false, "notVerified"];
+      }
       return [false, "technical"];
     }
   };
@@ -98,39 +103,39 @@ const createUsersApi = () => {
    * @returns {Promise<[boolean, null | 'technical']>}
    */
 
-  const signOff = async () => {
+  const signOut = async () => {
     try {
       const db = await dbRequest;
       await db.put("meta", { id: "current", value: null });
       return [true, null];
     } catch (error) {
-      return [false, 'technical'];
+      return [false, "technical"];
     }
   };
 
-    /**
+  /**
    * @param {string} token
    * @returns {Promise<[boolean, null | 'technical']>}
    */
 
-     const signInWithToken = async (token) => {
-      try {
-        const db = await dbRequest;
-        const { id } = await auth.confirm(token);
-  
-        await db.put("meta", { id: "current", value: id });
-        await db.put("data", { id: id });
-  
-        return [true, null];
-      } catch (error) {
-        return [false, "technical"];
-      }
-    };
+  const signInWithToken = async (token) => {
+    try {
+      const db = await dbRequest;
+      const { id } = await auth.confirm(token);
+
+      await db.put("meta", { id: "current", value: id });
+      await db.put("data", { id: id });
+
+      return [true, null];
+    } catch (error) {
+      return [false, "technical"];
+    }
+  };
 
   return {
     getCurrent,
     getUsers,
-    signOff,
+    signOut,
     createAccount,
     signInWithToken,
     signIn,
