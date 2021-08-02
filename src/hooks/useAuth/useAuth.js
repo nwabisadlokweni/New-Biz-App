@@ -1,4 +1,4 @@
-import React, { useState, createContext, Context } from "react";
+import React, { useState, createContext, context } from "react";
 import { users } from "../../api/users";
 import { useMount } from "react-use";
 
@@ -86,7 +86,7 @@ export const Provider = (props) => {
   const { children } = props;
   const auth = useAuthInsideProvider();
 
-  return <Context.Provider value={auth}>{children}</Context.Provider>;
+  return <context.Provider value={auth}>{children}</context.Provider>;
 };
 
 export default context;
