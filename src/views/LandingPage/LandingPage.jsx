@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout } from "../../components/Layout";
+import { Layout } from '../../components/Layout'
 
 export const LandingPage = () => {
   return (
@@ -9,6 +9,7 @@ export const LandingPage = () => {
       secondary={["Sign In", "/auth/signin"]}
       primary={["Create Account", "/auth/register"]}
     />
+     
   );
 };
 

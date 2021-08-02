@@ -34,4 +34,9 @@ export const ALERTS = {
     title: "Checking details",
     nature: "resolving",
   },
+  technical: {
+    nature: 'error',
+    tittle: 'Technical error',
+    description: 'Something went wrong on our side. Please try again later',
+  }
 };

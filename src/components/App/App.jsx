@@ -1,8 +1,10 @@
 import React from "react";
+import { HashRouter } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 import { CssBaseline } from "@material-ui/core";
 import { StylesProvider } from "@material-ui/core/styles";
 import { Routing } from "./App.Routing";
+import { HashRouter } from "react-router-dom";
 
 const Global = createGlobalStyle`
 html {
@@ -19,7 +21,6 @@ height: 100%;
 
 #root {
   min-height: 100vh;
-height: 100%;
 }
 `;
 
@@ -28,7 +29,9 @@ export const App = () => {
     <StylesProvider injectFirst>
       <CssBaseline />
       <Global />
-      <Routing />
+      <HashRouter>
+        <Routing />
+      </HashRouter>
     </StylesProvider>
   );
 };
