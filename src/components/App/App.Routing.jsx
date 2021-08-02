@@ -90,7 +90,7 @@ const Items = () => {
 };
 
 export const Routing = () => {
-  const { loading, user } = useContext();
+  const { loading, user } = useContext(authContext);
 
   if (loading) {
     return null;

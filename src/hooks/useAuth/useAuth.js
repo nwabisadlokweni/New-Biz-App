@@ -86,7 +86,7 @@ export const Provider = (props) => {
   const { children } = props;
   const auth = useAuthInsideProvider();
 
-  return <context.Provider value={auth}>{children}</context.Provider>;
+  return <Context.Provider value={auth}>{children}</Context.Provider>;
 };
 
 export default context;
