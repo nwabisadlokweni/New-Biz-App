@@ -5,6 +5,7 @@ import { Input } from "../../components/Input";
 import { tokens } from "../../data/tokens";
 import { useNewAccount } from "./NewAccount.useNewAccount";
 import { ALERTS } from "./NewAccount.constants";
+// import Alert from "../../components/Alert";
 
 const InputWrapper = styled.div`
   padding: ${tokens.spacing.s} 0;
@@ -23,6 +24,17 @@ export const NewAccount = () => {
   } = useNewAccount();
 
  const isResting = alert !== 'creating';
+// if ( alert === 'creating') {
+//   return (
+//     <Layout
+//     title='New Account'
+//     secondary={['Cancel', isResting && '/']}
+//   primary={['Create Account', isResting && createAccount]}
+//   >
+//     <Alert title='checking details' nature='resolving' />
+//   </Layout>
+//   )
+// }
 
   return (
     <Layout
@@ -32,6 +44,15 @@ export const NewAccount = () => {
       secondary={["Cancel", isResting && "/"]}
       primary={["Create Account", isResting && createAccount]}
     >
+
+    {/* // <Layout
+    // form
+    //   title="New Account"
+    //   alert={alert ? ALERTS[alert] : undefined}
+    //   secondary={["Cancel", "/"]}
+    //   primary={["Create Account", () => createAccount]}
+    // > */}
+
       <InputWrapper>
         <Input
           value={email}

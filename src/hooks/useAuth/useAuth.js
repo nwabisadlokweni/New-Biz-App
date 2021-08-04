@@ -1,4 +1,5 @@
-import React, { useState, createContext, context } from "react";
+/* eslint-disable-next-line */
+import React, { useState, createContext, Context } from "react";
 import { users } from "../../api/users";
 import { useMount } from "react-use";
 
