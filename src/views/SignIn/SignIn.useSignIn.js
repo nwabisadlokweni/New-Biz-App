@@ -10,8 +10,9 @@ export const useSignIn = () => {
   const [alert, setAlert] = useState(null);
   
   const signIn = async () => {
-    if (!email || email.length < 1) return "noEmail";
-    if (!password || password.length < 1) return "noPassword";
+console.log(alert, email, password)
+    if (!email || email.length < 1) return setAlert("noEmail");
+    if (!password || password.length < 1) return setAlert("noPassword");
 
     if (!validator.isEmail(email)) return setAlert("formatEmail");
     if (password.length < 8) return setAlert("shortPassword");

@@ -13,8 +13,8 @@ export const useNewAccount = () => {
   const [alert, setAlert] = useState(null);
 
   const createAccount = async () => {
-    if (!email || email.length < 1) return "noEmail";
-    if (!password || password.length < 1) return "noPassword";
+    if (!email || email.length < 1) return setAlert("noEmail");
+    if (!password || password.length < 1) return setAlert("noPassword");
     if (!confirmPassword || confirmPassword.length < 1)
       return "noConfirmPassword";
 

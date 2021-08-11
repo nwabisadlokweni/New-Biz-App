@@ -21,7 +21,7 @@ export const SignIn = () => {
   } = useSignIn();
 
  const isResting = alert !== 'checking';
-
+console.log(alert)
   return (
     <Layout
     form
