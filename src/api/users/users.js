@@ -60,7 +60,7 @@ const createUsersApi = () => {
       const { id } = await auth.signup(email, password);
 
       await db.put("meta", { id: "current", value: id });
-      await db.put("data", { id: id });
+      await db.put("data", { id: id, email });
 
       await signIn(email, password);
       return [true, null];
@@ -130,7 +130,7 @@ const createUsersApi = () => {
       const { id } = await auth.confirm(token);
 
       await db.put("meta", { id: "current", value: id });
-      await db.put("data", { id: id });
+      // await db.put("data", { id: id });
 
       return [true, null];
     } catch (error) {
@@ -144,7 +144,7 @@ const createUsersApi = () => {
       const { id } = await auth.recoverToken(token);
 
       await db.put("meta", { id: "current", value: id });
-      await db.put("data", { id: id });
+      // await db.put("data", { id: id });
 
       return [true, null];
     } catch (error) {
