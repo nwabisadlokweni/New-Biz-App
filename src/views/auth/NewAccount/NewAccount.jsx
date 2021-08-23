@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { Layout } from "../../components/Layout";
-import { Input } from "../../components/Input";
-import { tokens } from "../../data/tokens";
+import { Layout } from "../../../components/Layout";
+import { Input } from "../../../components/Input";
+import { tokens } from "../../../data/tokens";
 import { useNewAccount } from "./NewAccount.useNewAccount";
 import { ALERTS } from "./NewAccount.constants";
 // import Alert from "../../components/Alert";

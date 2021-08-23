@@ -74,9 +74,9 @@ const AlertWrap = styled.div`
  * @property {string} title
  * @property {boolean} form
  * @property {boolean} inverse
- * @property {[string, string | function]} [primary]
- * @property {[string, string | function]} [secondary]
- * @property {[string, string | function]} [extra]
+ * @property {[string, string | function, object]} [primary]
+ * @property {[string, string | function, object]} [secondary]
+ * @property {[string, string | function, object]} [extra]
  * @property {[tittle: string, description?: string, nature: 'error' | 'validation' | 'resolving']}
  */
 

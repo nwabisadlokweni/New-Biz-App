@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { users } from "../../api/users";
+import { users } from "../api/users";
 
 export const useApp = () => {
   const history = useHistory();

@@ -1,7 +1,7 @@
 import React from "react";
-import { Layout } from "../../components/Layout";
-import { Input } from "../../components/Input";
-import { useResetPassword } from "./ResetPassword.useResetPassword";
+import { Layout } from "../../../components/Layout";
+import { Input } from "../../../components/Input";
+import { useResetPassword } from "./RecoverPassword.useRecoverPassword";
 import { ALERTS } from "./ResetPassword.constants";
 
 export const ResetPassword = () => {
