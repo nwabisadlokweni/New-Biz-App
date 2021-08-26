@@ -5,8 +5,9 @@ import { context as authContext } from "../../hooks/useAuth";
 import { Demos } from "./App.Demos";
 import { Auth } from "./App.Routing.Auth";
 import { Create } from "./App.Routing.Create";
-
-import { LandingPage } from "../../views/general/LandingPage";
+import { Sync } from "./App.Routing.Sync";
+import { Items } from "./App.Routing.Items";
+import { General } from "./App.Routing.General";
 
 export const Routing = () => {
   const { loading, user } = useContext(authContext);
@@ -22,8 +23,8 @@ export const Routing = () => {
       </Route>
 
       <Route path="/items">{user ? <Items /> : <Redirect to="/" />}</Route>
-      <Route path="/items">{user ? <Sync /> : <Redirect to="/" />}</Route>
 
+      <Route path="/sync">{user ? <Sync /> : <Redirect to="/" />}</Route>
 
       <Route path="/auth">
         {user ? <Redirect to="/sync/check" /> : <Auth />}
@@ -33,9 +34,7 @@ export const Routing = () => {
         {user ? <Redirect to="/sync/check" /> : <Create />}
       </Route>
 
-      <Route path="/">
-        {user ? <Redirect to="/items/list" /> : <LandingPage />}
-      </Route>
+      <General />
     </Switch>
   );
 };

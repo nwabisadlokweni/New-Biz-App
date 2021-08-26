@@ -30,7 +30,7 @@ export const useSyncEmail = () => {
       if (!success) {
         return setAlert(code)
       }
-      history.push('/check/sync')
+      history.push('/sent')
   };
 
   return {

@@ -109,9 +109,10 @@ const createUsersApi = () => {
    * @param {string} password
    * @returns {Promise<[boolean, { id: string } | 'emailAreadyUsed' | 'technical']>}
    */
-  const changeToOnlineAccount = async (id, email, password) => {
+  const changeToOnlineAccount = async ( email, password) => {
     try {
       const db = await dbRequest;
+      const { id } = await getCurrent();
       const { id: netlifyId } = await auth.signup(email, password);
 
       await db.put("data", { id, netlifyId, email, type: "online" });

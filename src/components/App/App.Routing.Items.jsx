@@ -1,4 +1,5 @@
-import { ItemsList } from "../../views/ItemsList";
+import { Switch, Route, Redirect } from "react-router-dom";
+import { ItemsList } from "../../views/Items";
 
 export const Items = () => {
     return (

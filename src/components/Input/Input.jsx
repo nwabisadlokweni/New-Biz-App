@@ -41,6 +41,7 @@ export const Input = (props) => {
       fullWidth
       inputProps={{ type: accepts }}
       variant="filled"
+      autoComplete="off"
     />
   );
 };

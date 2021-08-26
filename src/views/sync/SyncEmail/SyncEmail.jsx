@@ -5,7 +5,6 @@ import { Input } from "../../../components/Input";
 import { tokens } from "../../../data/tokens";
 import { useSyncEmail } from "./SyncEmail.useSyncEmail";
 import { ALERTS } from "./SyncEmail.constants";
-// import Alert from "../../components/Alert";
 
 const InputWrapper = styled.div`
   padding: ${tokens.spacing.s} 0;
