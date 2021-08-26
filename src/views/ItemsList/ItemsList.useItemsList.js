@@ -1,23 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useState } from "react";
+import { users } from "../../api/users";
 import { useHistory } from "react-router-dom";
-import { users } from '../../api/users';
 
 export const useItemsList = () => {
-    const [current, setCurrent] = useState('')
+  const history = useHistory();
+  const [current, setCurrent] = useState("");
 
-    useEffect(() => {
-        users.getCurrent().then((response) => {
-            if (!response) return history.push('/')
-            setCurrent(response)
-        })
-    })
-const signOut = async () => {
-    users.signOut();
-}
+  const signOff = async () => {
+    users.signOff();
+    return history.push("/");
+  };
 
-return {
+  return {
     current,
-    signOut,
-
-}
-}
+    signOff,
+  };
+};

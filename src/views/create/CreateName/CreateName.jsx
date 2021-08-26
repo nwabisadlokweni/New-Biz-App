@@ -5,7 +5,7 @@ import { Layout } from "../../../components/Layout";
 import { Input } from "../../../components/Input";
 import { Text } from "../../../components/Text";
 import { tokens } from "../../../data/tokens";
-import { ALERTS } from './CreateName.useCreateName'
+import { ALERTS } from "./CreateName.useCreateName";
 
 const InputWrap = styled.div`
   padding: ${tokens.spacing.l} 0;
@@ -17,12 +17,13 @@ export const CreateName = () => {
   return (
     <Layout
       title="New Account"
-     form
-      primary={["Continue", save]}
+      padded
+      form
+      primary={["Continue", save, { name }]}
       secondary={["Back", "/"]}
       alert={ALERTS[alert]}
     >
-      <Text size="s">Provide a name to be associated with this account.</Text>
+      <Text size="m">Provide a name to be associated with this account.</Text>
       <InputWrap>
         <Input
           accepts="text"

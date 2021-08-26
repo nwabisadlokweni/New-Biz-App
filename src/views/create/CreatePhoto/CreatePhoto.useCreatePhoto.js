@@ -1,11 +1,14 @@
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { users } from '../../../api/users'
 /**
  * @typedef {'display' | 'editing' } phase
  */
 export const useCreatePhoto = () => {
   const history = useHistory();
+const { state } = useLocation();
+
+if (!state ||!state.name) history.push('/create/name')
 
   /**
    * @type {[phase, (newPhase: phase) => void]}
@@ -14,19 +17,16 @@ export const useCreatePhoto = () => {
   const [image, setImage] = useState(null);
   const [alert, setAlert] = useState(null);
 
-  const save = () => {
+  const save = async () => {
     if (!image) return setAlert("noImage");
     setAlert("saving");
    
-   await users.createAccount({
-     
-   })
-    // history.push("/create/sync");
-  };
+   await users.createLocalAccount(state.name, image)
+  history.push('/create/sync') 
+  }
 
-  const uploadImage = (file) => {
-    const imageUrl = URL.createObjectURL(file);
-    setImage(imageUrl);
+  const uploadImage = ([file]) => {
+    setImage(file);
     setPhase('display')
   };
 
@@ -39,7 +39,7 @@ export const useCreatePhoto = () => {
     uploadImage,
     phase,
     edit,
-    image,
+    image: image && URL.createObjectURL(image),
     alert,
     save,
   };

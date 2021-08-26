@@ -8,19 +8,14 @@ import { Provider as AuthProvider } from "../../hooks/useAuth";
 
 const Global = createGlobalStyle`
 html {
-  min-height: 100vh;
   height: 100%;
 }
 
 body {
   overflow-x: hidden;
-overflow-y: scroll;
-min-height: 100vh;
-height: 100%;
-}
-
-#root {
+  overflow-y: scroll;
   min-height: 100vh;
+  background: white;
 }
 `;
 

@@ -17,9 +17,9 @@ const checkIfRecover = async () => {
   const tokenValue = hash.replace(/#\/recovery_token=/, "");
   const response = await users.signInWithRecovery(tokenValue);
   return response;
-}
+};
 
- const useAuthInsideProvider = () => {
+const useAuthInsideProvider = () => {
   const [user, setUser] = useState(null);
 
   useMount(async () => {
@@ -35,8 +35,8 @@ const checkIfRecover = async () => {
     setUser(false);
   });
 
-  const signIn = async (email, password) => {
-    const [success, payload] = await users.signIn(email, password);
+  const signInOnline = async (email, password) => {
+    const [success, payload] = await users.signInOnline(email, password);
 
     if (success) {
       setUser(payload);
@@ -44,13 +44,33 @@ const checkIfRecover = async () => {
     return [success, payload];
   };
 
-  const createAccount = async (email, password) => {
-    const [success, payload] = await users.createAccount(email, password);
+  const changeToOnlineAccount = async (email, password) => {
+    const [success, payload] = await users.changeToOnlineAccount(email, password);
+
+    return [success, payload];
+  };
+
+  const signInLocal = async (id) => {
+    const [success, payload] = await users.signInLocal(id);
+
+    console.log(success, payload);
+
+    if (success) {
+      setUser(payload);
+    }
+    return [success, payload];
+  };
+
+  const createLocalAccount = async (name, image) => {
+    const [success, payload] = await users.createLocalAccount(name, image);
+    signInLocal(payload.id);
+
     return [success, payload];
   };
 
   const signOut = async () => {
     const [success] = await users.signOut();
+
     if (success) {
       setUser(false);
     }
@@ -60,10 +80,11 @@ const checkIfRecover = async () => {
   return {
     loading: user === null,
     user,
-    signIn,
-    createAccount,
+    signInOnline,
+    changeToOnlineAccount,
     signOut,
-    reset: users.resetPassword,
+    signInLocal,
+    createLocalAccount,
   };
 };
 
@@ -71,10 +92,10 @@ const checkIfRecover = async () => {
  * @typedef {object} auth
  * @property {boolean} loading
  * @property {null | false | { id: string }} user
- * @property {{email: string, password: string} => Promise<boolean, any>} signIn
- * @property {{email: string, password: string} => Promise<boolean, any>} createAccount
+ * @property {{email: string, password: string} => Promise<boolean, any>} signInOnline
+ * @property {{email: string, password: string} => Promise<boolean, any>} createOnlineAccount
  * @property {() => Promise<boolean, any>} signOut
- * @property {() => Promise<boolean>} reset
+ * @property {(id) => Promise<boolean, any>} signInLocal
  */
 
 /**

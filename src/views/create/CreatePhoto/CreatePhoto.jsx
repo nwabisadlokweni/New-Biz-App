@@ -28,8 +28,8 @@ const Image = styled(ButtonBase)`
     8px 1px 5px 8px rgb(0 0 0 / 12%);
 
   &:hover {
-    ${({ hasHover }) =>
-      !hasHover
+    ${({ $hasHover }) =>
+      !$hasHover
         ? ""
         : `background: rgba(${tokens.colors.black}. ${tokens.opacity.subtle})`};
   }
@@ -38,12 +38,12 @@ const Image = styled(ButtonBase)`
 const Camera = styled(CameraIcon)`
   width: ${tokens.images.s};
   height: ${tokens.images.s};
-  opaciti: ${tokens.opacity.strong};
+  opacity: ${tokens.opacity.strong};
 `;
 
 export const CreatePhoto = () => {
   const { image, uploadImage, alert, save, phase, edit } = useCreatePhoto();
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+  const { getRootProps, getInputProps, isDragActive, open } = useDropzone({
     onDrop: uploadImage,
   });
 
@@ -81,9 +81,9 @@ export const CreatePhoto = () => {
 
       <InputWrap>
         <Image
-          hasHover
+          $hasHover
           {...getRootProps()}
-          isDragActive={isDragActive}
+          isDragging={isDragActive}
           image={image}
         >
           <Camera />

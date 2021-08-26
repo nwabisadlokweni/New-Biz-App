@@ -10,7 +10,6 @@ export const useSignIn = () => {
   const [alert, setAlert] = useState(null);
   
   const signIn = async () => {
-// console.log(alert, email, password)
     if (!email || email.length < 1) return setAlert("noEmail");
     if (!password || password.length < 1) return setAlert("noPassword");
 
