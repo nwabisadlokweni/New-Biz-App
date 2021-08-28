@@ -39,12 +39,24 @@ const fetchFn = async (event) => {
   const cacheInstance = await caches.open(hash);
   const cachedResponse = await cacheInstance.match(event.request);
   if (!cachedResponse) return await fetch(event.request);
-
   return await cachedResponse;
 };
+
+const notificationClickFn = async (event) => {
+  event.notification.close();
+
+  if (event.action === 'add') {
+    console.log("ADD")
+  }
+  
+  if (event.action === 'view') {
+    console.log("VIEW")
+  }
+} 
 
 self.addEventListener("install", (event) => event.waitUntil(installFn(event)));
 self.addEventListener("activate", (event) =>
   event.waitUntil(activateFn(event))
 );
 self.addEventListener("fetch", (event) => event.respondWith(fetchFn(event)));
+self.addEventListener("notificationClick", (event) => event.notificationClickFn(event));

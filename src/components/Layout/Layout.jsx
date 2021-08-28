@@ -6,7 +6,7 @@ import { Button } from "../Button";
 import { Link } from "../Link";
 import { Alert } from "../Alert";
 import { useHistory } from "react-router-dom";
-import '../../types/action'
+import "../../types/action";
 
 const COLORS = {
   white: `rgb(${tokens.colors.white})`,
@@ -133,7 +133,7 @@ export const Layout = (props) => {
             <Nested>
               <NestedChildren>{children}</NestedChildren>
             </Nested>
-         
+          </Content>
         </main>
 
         <Actions aria-label="actions">
@@ -178,7 +178,6 @@ export const Layout = (props) => {
             </LinkWrap>
           )}
         </Actions>
-         </Content>
       </Base>
     </BaseWrap>
   );
