@@ -1,4 +1,5 @@
 import React from "react";
+import { Input } from '../../../components/Input'
 import { useItemsList } from "./ItemsList.useItemsList";
 
 export const ItemsList = () => {
@@ -11,6 +12,15 @@ export const ItemsList = () => {
       )}
       <div>Logged In: {user ? JSON.stringify(user) : "NO USER"}</div>
       <button onClick={signOut}>LOG OUT</button>
+    
+    <form>
+      <Input label="Name" onChange={} />
+      <Input label="Name" onChange={} />
+      <Input label="Name" onChange={} />
+      <Input label="Name" onChange={} />
+      <Input label="Name" onChange={} />
+      <Input label="Name" onChange={} />
+    </form>
     </div>
   );
 };
