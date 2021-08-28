@@ -1,3 +1,8 @@
+/** 
+* @typedef {'id' | 'location' | 'name' | 
+'surname' | 'date' |'priceInCents'}  shookKey 
+*/
+
 /**
  * @typedef {object} Shoot
  * @property {string} id

@@ -26,7 +26,7 @@ export const createDbStore = (name, keys = []) => {
    */
   const setMeta = async (key, value) => {
     const db = await dbRequest;
-    return await db.set("meta", { id: key, value });
+    return await db.put("meta", { id: key, value });
   };
 
   /**
