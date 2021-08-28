@@ -1,14 +1,16 @@
 import { useState } from "react";
+import { context as authContext } from "../../../hooks/useAuth";
 import { useHistory, useLocation } from "react-router-dom";
-import { users } from '../../../api/users'
+
 /**
  * @typedef {'display' | 'editing' } phase
  */
 export const useCreatePhoto = () => {
+  const { createLocalAccount } = useContext(authContext)
   const history = useHistory();
-const { state } = useLocation();
+  const { state } = useLocation();
 
-if (!state ||!state.name) history.push('/create/name')
+  if (!state || !state.name) history.push("/create/name");
 
   /**
    * @type {[phase, (newPhase: phase) => void]}
@@ -20,20 +22,20 @@ if (!state ||!state.name) history.push('/create/name')
   const save = async () => {
     if (!image) return setAlert("noImage");
     setAlert("saving");
-   
-   await users.createLocalAccount(state.name, image)
-  history.push('/create/sync') 
-  }
+
+    await users.createLocalAccount(state.name, image);
+    history.push("/create/sync");
+  };
 
   const uploadImage = ([file]) => {
     setImage(file);
-    setPhase('display')
+    setPhase("display");
   };
 
   const edit = () => {
     setImage(null);
     setPhase("editing");
-  }
+  };
 
   return {
     uploadImage,

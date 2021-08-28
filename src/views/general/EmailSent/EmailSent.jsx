@@ -12,7 +12,7 @@ const Content = styled.div`
 const StyledIcon = styled(Icon)`
   width: ${tokens.images.l};
   height: ${tokens.images.l};
-  colors: rgb(${tokens.colors.white});
+  color: rgb(${tokens.colors.white});
 `;
 
 export const EmailSent = () => {

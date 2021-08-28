@@ -5,7 +5,7 @@ import { Layout } from "../../../components/Layout";
 import { Input } from "../../../components/Input";
 import { Text } from "../../../components/Text";
 import { tokens } from "../../../data/tokens";
-import { ALERTS } from "./CreateName.useCreateName";
+import { ALERTS } from "./CreateName.constants";
 
 const InputWrap = styled.div`
   padding: ${tokens.spacing.l} 0;

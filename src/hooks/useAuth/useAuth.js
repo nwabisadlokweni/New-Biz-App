@@ -45,8 +45,29 @@ const useAuthInsideProvider = () => {
   };
 
   const changeToOnlineAccount = async (email, password) => {
-    const [success, payload] = await users.changeToOnlineAccount(email, password);
+    const [success, payload] = await users.changeToOnlineAccount(
+      email,
+      password
+ );
 
+ if (success) {
+  setUser({
+    ...user,
+    type: "verifying",
+  });
+
+    return [success, payload];
+  };
+
+  const cancelVerification = async () => {
+    const [success, payload] = await users.cancelVerification();
+
+    if (success) {
+      setUser({
+        ...user,
+        type: "local",
+      });
+    }
     return [success, payload];
   };
 
@@ -85,6 +106,7 @@ const useAuthInsideProvider = () => {
     signOut,
     signInLocal,
     createLocalAccount,
+    cancelVerification,
   };
 };
 
@@ -93,9 +115,10 @@ const useAuthInsideProvider = () => {
  * @property {boolean} loading
  * @property {null | false | { id: string }} user
  * @property {{email: string, password: string} => Promise<boolean, any>} signInOnline
- * @property {{email: string, password: string} => Promise<boolean, any>} createOnlineAccount
+ * @property {{email: string, password: string} => Promise<boolean, any>} changeToOnlineAccount
  * @property {() => Promise<boolean, any>} signOut
  * @property {(id) => Promise<boolean, any>} signInLocal
+ * @property {() => Promise<boolean, any>} cancelVerification
  */
 
 /**

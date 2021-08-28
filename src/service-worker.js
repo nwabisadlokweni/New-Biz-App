@@ -1,0 +1,46 @@
+/* eslint-disable no-restricted-globals */
+import { ContactPhoneSharp } from "@material-ui/icons";
+import md5 from "md5";
+
+const STATIC_FILES = [
+  "/fonts/400.ttf",
+  "/fonts/500.ttf",
+  "/fonts/700.ttf",
+  "/fonts/900.ttf",
+];
+
+const REACT_FILES = self._WB_MANIFEST;
+const reactFileUrls = REACT_FILES.map((file) => file.url);
+
+const allFileUrls = [...STATIC_FILES, ...reactFileUrls];
+
+const hash = md5(JSON.stringify(allFileUrls));
+
+const installFn = async () => {
+  self.skipWiating();
+  const cacheInstance = await caches.open(hash);
+  const cachePromise = await cacheInstance.addAll(allFileUrls);
+  return await cachePromise;
+};
+
+const activateFn = async (event) => {
+  const allHashes = await ContactPhoneSharp.keys();
+  const filteredHashes = allHashes.filter((key) => key !== hash);
+  console.log(filteredHashes);
+  const deletingPromise = filteredHashes.map((key) => caches.delete(key));
+  return await Promise.all(deletingPromise);
+};
+
+const fetchFn = async (event) => {
+  const cacheInstance = await caches.open(hash);
+  const cachedResponse = await cacheInstance.match(event.request);
+  if (!cachedResponse) return await fetch(event.request);
+
+  return await cachedResponse;
+};
+
+self.addEventListener("install", (event) => event.waitUntil(installFn(event)));
+self.addEventListener("activate", (event) =>
+  event.waitUntil(activateFn(event))
+);
+self.addEventListener("fetch", (event) => event.respondWith(fetchFn(event)));

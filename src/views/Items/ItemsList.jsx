@@ -1,10 +1,8 @@
-import React, { useContext } from "react";
-import { context as authContext } from "../../hooks/useAuth";
+import React from "react";
 import { useItemsList } from "./ItemsList.useItemsList";
 
 export const ItemsList = () => {
-  const { user, signOut } = useContext(authContext);
-  useItemsList();
+  const { user, signOut } = useItemsList();
 
   return (
     <div>

@@ -1,6 +1,7 @@
 import GoTrue from "gotrue-js";
-import { openDB } from "idb";
-import { v4 as createId } from "uuid";
+// import { openDB } from "idb";
+// import { v4 as createId } from "uuid";
+import { createDbStore } from "../../utils/createDbStore";
 import "../../types/User";
 
 const auth = new GoTrue({
@@ -9,14 +10,9 @@ const auth = new GoTrue({
   setCookie: false,
 });
 
-const createUsersApi = () => {
-  const dbRequest = openDB("users", 1, {
-    upgrade: (innerDb) => {
-      innerDb.createObjectStore("data", { keyPath: "id" });
-      innerDb.createObjectStore("meta", { keyPath: "id" });
-    },
-  });
+const db = createDbStore("users", ["activity"]);
 
+const createUsers = () => {
   /**
    * @param {string} email
    * @param {string} password
@@ -24,12 +20,10 @@ const createUsersApi = () => {
    */
   const signInOnline = async (email, password) => {
     try {
-      const db = await dbRequest;
       const { id, token } = await auth.login(email, password);
 
-      await db.put("meta", { id: "current", value: id });
-      await db.put("meta", { id: "accessToken", value: token.access_token });
-    
+      await db.setMeta("current", id);
+      await db.setMeta("accessToken", token.access_token);
       return [true, { id }];
     } catch (error) {
       const errorAsString = error.toString();
@@ -55,12 +49,21 @@ const createUsersApi = () => {
    */
   const signInOnlineWithToken = async (token) => {
     try {
-      const db = await dbRequest;
-      const { id } = await auth.confirm(token);
+      const { id: netlifyId } = await auth.confirm(token);
 
-      await db.put("meta", { id: "current", value: id });
+      const result = db.search(
+        (singleUser) => singleUser.netlifyId === netlifyId
+      );
 
-      return [true, { id }];
+      const newUserData = {
+        ...result,
+        type: "online",
+        netlifyId,
+      };
+      await db.update(newUserData);
+      await db.setMeta("acccessToken", token.access_token);
+
+      return [true, newUserData];
     } catch (error) {
       return [false, "technical"];
     }
@@ -72,10 +75,9 @@ const createUsersApi = () => {
    */
   const signInOnlineWithRecovery = async (token) => {
     try {
-      const db = await dbRequest;
       const { id } = await auth.recoverToken(token);
 
-      await db.put("meta", { id: "current", value: id });
+      await db.setMeta("current", id);
 
       return [true, { id }];
     } catch (error) {
@@ -88,8 +90,7 @@ const createUsersApi = () => {
    * @param {Blob} image
    */
   const createLocalAccount = async (name, image) => {
-    const db = await dbRequest;
-    const id = createId();
+    const id = db.generateId();
 
     const newAccount = {
       id,
@@ -98,8 +99,9 @@ const createUsersApi = () => {
       activity: new Date(),
       type: "local",
     };
-    await db.put("data", newAccount);
-    await db.put("meta", { id: "current", value: id });
+
+    await db.add(newAccount);
+    await db.setMeta("current", id);
 
     return [true, newAccount];
   };
@@ -109,18 +111,23 @@ const createUsersApi = () => {
    * @param {string} password
    * @returns {Promise<[boolean, { id: string } | 'emailAreadyUsed' | 'technical']>}
    */
-  const changeToOnlineAccount = async ( email, password) => {
+  const changeToOnlineAccount = async (email, password) => {
     try {
-      const db = await dbRequest;
-      const { id } = await getCurrent();
+      const currentUser = await getCurrent();
       const { id: netlifyId } = await auth.signup(email, password);
 
-      await db.put("data", { id, netlifyId, email, type: "online" });
+      const newUserData = {
+        ...currentUser,
+        netlifyId,
+        email,
+        type: "verifying",
+      };
+      await db.update(newUserData);
 
-      await signInOnline(email, password);
-      return [true, null];
+      return [true, newUserData];
     } catch (error) {
       const errorAsString = error.toString();
+
       if (
         errorAsString ===
         "JSONHTTPError: A user with this email address has already been registered"
@@ -132,45 +139,13 @@ const createUsersApi = () => {
   };
 
   /**
-   * @param {string} token
-   * @returns {Promise<[boolean, null | 'technical']>}
-   */
-  const signInWithToken = async (token) => {
-    try {
-      const db = await dbRequest;
-      const { id } = await auth.confirm(token);
-
-      await db.put("meta", { id: "current", value: id });
-
-      return [true, null];
-    } catch (error) {
-      return [false, "technical"];
-    }
-  };
-
-  const signInWithRecovery = async (token) => {
-    try {
-      const db = await dbRequest;
-      const { id } = await auth.recoverToken(token);
-
-      await db.put("meta", { id: "current", value: id });
-
-      return [true, { id }];
-    } catch (error) {
-      return [false, "technical"];
-    }
-  };
-
-  /**
    * @returns {Promise<null | User>}
    */
   const getCurrent = async () => {
-    const db = await dbRequest;
+    const current = await db.getMeta("current");
+    if (!current) return null;
 
-    const current = await db.get("meta", "current");
-    if (!current || !current.value) return null;
-
-    const response = await db.get("data", current.value);
+    const response = await db.read(current);
     return response;
   };
 
@@ -178,12 +153,11 @@ const createUsersApi = () => {
    * @returns {Promise<User[]>}
    */
   const getUsers = async () => {
-    const db = await dbRequest;
-    return await db.getAll("data");
+    return await db.search(true, { count: 20, sorting: "activity" });
   };
 
   /**
-   * @param {string} id
+   * @param {string} email
    * @returns {[boolean]}
    */
   const resetOnlinePassword = async (email) => {
@@ -192,13 +166,12 @@ const createUsersApi = () => {
   };
 
   /**
-   * @param {string} email
+   * @param {string} id
    * @returns {Promise<[boolean, null | 'technical']>}
    */
   const signInLocal = async (id) => {
     try {
-      const db = await dbRequest;
-      await db.put("meta", { id: "current", value: id });
+      await db.search("current", id);
 
       const currentUser = await users.getCurrent();
       return [true, currentUser];
@@ -212,12 +185,18 @@ const createUsersApi = () => {
    */
   const signOut = async () => {
     try {
-      const db = await dbRequest;
-      await db.put("meta", { id: "current", value: null });
+      await db.setMeta("current", null);
       return [true, null];
     } catch (error) {
       return [false, "technical"];
     }
+  };
+
+  const cancelVerification = async () => {
+    const user = await getCurrent();
+
+    const response = await db.update({ ...user, type: "local" });
+    return response;
   };
 
   return {
@@ -231,8 +210,9 @@ const createUsersApi = () => {
     signOut,
     resetOnlinePassword,
     signInOnlineWithRecovery,
+    cancelVerification,
   };
 };
 
-export const users = createUsersApi();
+export const users = createUsers();
 export default users;

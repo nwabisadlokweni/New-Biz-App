@@ -4,7 +4,7 @@ import { Layout } from "../../../components/Layout";
 import { Input } from "../../../components/Input";
 import { tokens } from "../../../data/tokens";
 import { useSyncEmail } from "./SyncEmail.useSyncEmail";
-import { ALERTS } from "./SyncEmail.constants";
+import { ALERTS } from "..constants";
 
 const InputWrapper = styled.div`
   padding: ${tokens.spacing.s} 0;
@@ -28,6 +28,7 @@ export const SyncEmail = () => {
     <Layout
     form
       title="Online Details"
+      padded
       alert={alert ? ALERTS[alert] : undefined}
       secondary={["Cancel", isResting && "/"]}
       primary={["Sync Account", isResting && createAccount]}
@@ -47,15 +48,17 @@ export const SyncEmail = () => {
           label="Password"
           accepts="password"
           onChange={isResting && setPassword}
+          autoComplete="new-password"
         />
       </InputWrapper>
 
       <InputWrapper>
         <Input
-          value={confirmPassword}
           label="Confirm Password"
           accepts="password"
+          value={confirmPassword}
           onChange={isResting && setConfirmPassword}
+          autoComplete="new-password"
         />
       </InputWrapper>
  </Layout>

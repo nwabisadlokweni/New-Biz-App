@@ -5,6 +5,6 @@
    * @property {Blog | null} image
    * @property {string | null} email
    * @property {Date} activity
-   * @property {'local' | 'online'} type
+   * @property {'local' | 'online' | 'verifying'} type
    * @property {string} token
    */

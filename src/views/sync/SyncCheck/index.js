@@ -1,1 +1,1 @@
-export { default, EnableSync } from '.'
+export { default, SyncCheck } from './SyncCheck'

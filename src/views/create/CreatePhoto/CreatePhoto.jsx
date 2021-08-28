@@ -7,7 +7,7 @@ import { Layout } from "../../../components/Layout";
 import { ButtonBase } from "@material-ui/core";
 import { Text } from "../../../components/Text";
 import { tokens } from "../../../data/tokens";
-import { ALERTS } from "./CreatePhoto.useCreatePhoto";
+import { ALERTS } from "./CreatePhoto.constants";
 
 const InputWrap = styled.div`
   padding: ${tokens.spacing.l} 0;

@@ -1,18 +1,27 @@
-import { useState } from "react";
-import { users } from "../../api/users";
-import { useHistory } from "react-router-dom";
+import { useContext, useState } from "react";
+import { useMount } from "react-use";
+import { context as authContext } from "../../../hooks/useAuth";
+import { shoots } from "../../../api/shoots";
 
 export const useItemsList = () => {
-  const history = useHistory();
-  const [current, setCurrent] = useState("");
+  const { user, signOut } = useContext(authContext);
+  const [list, setList] = useState([]);
 
-  const signOff = async () => {
-    users.signOff();
-    return history.push("/");
-  };
+  useMount(async () => {
+    const result = await shoots.search(() => true);
+    console.log(result);
 
+    shoots.add({
+      date: new Date(),
+      location: "Cape Town",
+      name: "Nwabisa",
+      suename: "Dlokweni",
+      priceInCents: "3000",
+    });
+  });
+  
   return {
-    current,
-    signOff,
+    user,
+    signOut,
   };
 };
