@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { context as authContext } from "../../../hooks/useAuth";
 import { useHistory, useLocation } from "react-router-dom";
 
@@ -6,7 +6,7 @@ import { useHistory, useLocation } from "react-router-dom";
  * @typedef {'display' | 'editing' } phase
  */
 export const useCreatePhoto = () => {
-  const { createLocalAccount } = useContext(authContext)
+  const { createLocalAccount } = useContext(authContext);
   const history = useHistory();
   const { state } = useLocation();
 
@@ -23,8 +23,7 @@ export const useCreatePhoto = () => {
     if (!image) return setAlert("noImage");
     setAlert("saving");
 
-    await users.createLocalAccount(state.name, image);
-    history.push("/create/sync");
+    await createLocalAccount(state.name, image);
   };
 
   const uploadImage = ([file]) => {

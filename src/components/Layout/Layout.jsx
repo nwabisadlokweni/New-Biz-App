@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { tokens } from "../../data/tokens";
 import { Text } from "../Text";
+import { Dialog } from "@material-ui/core";
 import { Button } from "../Button";
 import { Link } from "../Link";
 import { Alert } from "../Alert";
@@ -69,12 +70,18 @@ const Header = styled.header`
 padding: ${tokens.spacing.xl} ${tokens.spacing.m} 0};
 `;
 
+const OverlayHeader = styled.header`
+padding: ${tokens.spacing.xl} ${tokens.spacing.m} 0};
+text-align: center;
+`;
+
 const Actions = styled.aside`
   padding: 0 ${tokens.spacing.m} ${tokens.spacing.l};
 `;
 
 /**
  * @typedef {object} props
+ * @property {boolean} overlay
  * @property {JSX.Element} children
  * @property {string} title
  * @property {boolean}
@@ -102,6 +109,7 @@ export const Layout = (props) => {
     secondary,
     alert,
     form,
+    overlay,
   } = props;
 
   const history = useHistory();
@@ -114,6 +122,19 @@ export const Layout = (props) => {
       return history.push(newLocation);
     }
     primary[1]();
+
+    if (overlay) {
+      return (
+        <Dialog open>
+          <OverlayHeader>
+            <Text size="xl" component="h2">
+              {title}
+            </Text>
+          </OverlayHeader>
+          {children}
+        </Dialog>
+      );
+    }
   };
 
   return (
@@ -125,59 +146,61 @@ export const Layout = (props) => {
           </Text>
         </Header>
 
-        <main>
-          <Content
-            as={form ? "form" : "div"}
-            onSubmit={form ? handleForm : undefined}
-          >
-            <Nested>
-              <NestedChildren>{children}</NestedChildren>
-            </Nested>
-          </Content>
-        </main>
+        <Content
+          as={form ? "form" : "div"}
+          onSubmit={form ? handleForm : undefined}
+        >
+          <Nested padded={padded}>
+            <NestedChildren>{children}</NestedChildren>
+          </Nested>
 
-        <Actions aria-label="actions">
-          {alert && (
-            <AlertWrap>
-              <Alert {...alert} />
-            </AlertWrap>
-          )}
+          <Actions aria-label="actions"> 
+            {alert && (
+              <AlertWrap>
+                <Alert {...alert} />
+              </AlertWrap>
+            )}
 
-          {secondary && (
-            <ButtonWrap>
-              <Button
-                action={(form && !primary) || secondary[1]}
-                detail={secondary[1] || {}}
-                inverse={inverse}
-                full
-              >
-                {secondary[0]}
-              </Button>
-            </ButtonWrap>
-          )}
+            {secondary && (
+              <ButtonWrap>
+                <Button
+                  action={(form && !primary) || secondary[1]}
+                  detail={secondary[1] || {}}
+                  inverse={inverse}
+                  full
+                >
+                  {secondary[0]}
+                </Button>
+              </ButtonWrap>
+            )}
 
-          {primary && (
-            <ButtonWrap>
-              <Button
-                action={form || primary[1]}
-                inverse={inverse}
-                full
-                detail={primary[2] || {}}
-                importance="primary"
-              >
-                {primary[0]}
-              </Button>
-            </ButtonWrap>
-          )}
+            {primary && (
+              <ButtonWrap>
+                <Button
+                  action={form || primary[1]}
+                  inverse={inverse}
+                  full
+                  detail={primary[2] || {}}
+                  importance="primary"
+                >
+                  {primary[0]}
+                </Button>
+              </ButtonWrap>
+            )}
 
-          {extra && (
-            <LinkWrap>
-              <Link action={extra[1]} detail={extra[2] || {}} inverse={inverse}>
-                {extra[0]}
-              </Link>
-            </LinkWrap>
-          )}
-        </Actions>
+            {extra && (
+              <LinkWrap>
+                <Link
+                  action={extra[1]}
+                  detail={extra[2] || {}}
+                  inverse={inverse}
+                >
+                  {extra[0]}
+                </Link>
+              </LinkWrap>
+            )}
+          </Actions>
+        </Content>
       </Base>
     </BaseWrap>
   );

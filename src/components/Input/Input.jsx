@@ -17,7 +17,7 @@ const StyledTextField = styled(TextField)`
  * @typedef {object} props
  * @property {string} label
  * @property {string} value
- * @property {'text' | 'email' | 'password'} accepts
+ * @property {'text' | 'email' | 'password' | 'datetime-local'} accepts
  * @property {{value: string} => void} onChange
  */
 
@@ -36,6 +36,7 @@ export const Input = (props) => {
     <StyledTextField
       value={value}
       label={label}
+      InputLabelProps={{ shrink: accepts === 'date' ? true : undefined }}
       disabled={!onChange}
       onChange={handleChange}
       fullWidth
