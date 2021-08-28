@@ -50,6 +50,29 @@ body {
   background: white;
 }
 `;
+const fireTest = () => {
+  new Notification("Hi there!", {
+    body: "This is a description with more details",
+    badge: "https://our-biz-app.netlify.app/meta/camera.png",
+    icons: "https://our-biz-app.netlify.app/meta/camera.png"
+  })
+}
+
+if (Notification.permission === 'granted') {
+console.log('You can resolve notification')
+}
+
+const handlePermission = () => {
+  fireTest();
+}
+
+if (Notification.permission === 'granted') {
+  console.log('You can resolve notification')
+  }
+
+  function notification() {
+    if (!("Notification"))
+  }
 
 export const App = () => {
   return (

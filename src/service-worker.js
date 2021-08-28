@@ -3,10 +3,14 @@ import { ContactPhoneSharp } from "@material-ui/icons";
 import md5 from "md5";
 
 const STATIC_FILES = [
+  "./meta/camera-2.png",
+  "./meta/camera-2.png",
+  "./meta/cover-image.jpeg",
   "/fonts/400.ttf",
   "/fonts/500.ttf",
   "/fonts/700.ttf",
   "/fonts/900.ttf",
+
 ];
 
 const REACT_FILES = self._WB_MANIFEST;
