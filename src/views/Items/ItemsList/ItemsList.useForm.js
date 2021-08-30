@@ -2,9 +2,10 @@ import { useContext, useState } from "react";
 import { useMount } from "react-use";
 import { shoots } from "../../../api/shoots";
 import { context as authContext } from "../../../hooks/useAuth";
-import "../../../types/shoot";
+import "../../../types/Shoot";
+import { format as formatDate } from "date-fns";
 
-export const useItemsList = () => {
+export const useForm = () => {
   const { user, signOut } = useContext(authContext);
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
@@ -76,7 +77,9 @@ export const useItemsList = () => {
   });
 
   return {
-    date: date ? `${formatDate(date, 'yyyy-MM-dd')}T${formatDate(date, 'hh:mm')}` : '',
+    date: date
+      ? `${formatDate(date, "yyyy-MM-dd")}T${formatDate(date, "hh:mm")}`
+      : "",
     update,
     location,
     name,

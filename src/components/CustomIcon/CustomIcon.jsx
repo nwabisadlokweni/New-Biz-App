@@ -15,7 +15,7 @@ import { tokens } from '../../data/tokens'
  */
 
 const Base = styled(SvgIcon)`
-color: ${({ inverse }) => `rgb{${($inverse ? tokens.colors.white : tokens.colors.black)})`};
+color: ${({ $inverse }) => `rgb{${($inverse ? tokens.colors.white : tokens.colors.black)})`};
 width: ${({ size }) => tokens.images[size]};
 height: ${({ size }) => tokens.images[size]};
 `

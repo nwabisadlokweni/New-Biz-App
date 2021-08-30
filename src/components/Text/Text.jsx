@@ -22,10 +22,10 @@ const calcColor = ({ size, $inverse }) => {
   return COLORS.blackMedium;
 };
 
-const lineClapCss = (number) => `
+const lineClampCss = (number) => `
 display: -webkit-box:
--webkit-line-clap: ${number};
--webkit-box-oriant: vertical;
+-webkit-line-clamp: ${number};
+-webkit-box-orient: vertical;
 overflow: hidden;
 `;
 
@@ -34,7 +34,7 @@ const StyledTypography = styled(Typography)`
   font-weight: ${({ size }) => tokens.text[size].weight};
   line-height: ${({ size }) => tokens.text[size].height};
   letter-spacing: ${({ size }) => tokens.text[size].spacing};
- $({ lines }) => lines > 0 ? lineClapCss(lines) : ''}
+ ${({ lines }) => lines > 0 ? lineClampCss(lines) : ''}
   color: ${calcColor};
 `;
 /**

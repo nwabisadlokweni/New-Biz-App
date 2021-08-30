@@ -9,6 +9,7 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "date-fns": "^2.23.0",
     "gotrue-js": "^0.9.29",
     "idb": "^6.1.2",
     "md5": "^2.3.0",

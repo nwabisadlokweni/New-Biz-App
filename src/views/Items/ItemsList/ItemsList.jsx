@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Input } from "../../../components/Input";
 import { format as formatDate } from "date-fns";
-import { useItemsList } from "./ItemsList.useItemsList";
+import { useForm } from "./ItemsList.useForm";
 import { Layout } from "../../../components/Layout";
 import { ItemPreview } from "../../../components/ItemPreview";
 import { tokens } from "../../../data/tokens";
@@ -12,8 +12,8 @@ const InputWrapper = styled.div`
 `;
 
 export const ItemsList = () => {
-  const { list, date, surname, name, location, priceInCents, update, submit } =
-    useItemsList();
+  const { list, date, surname, name, location, priceInCents, update } =
+    useForm();
 
   return (
     <Layout tittle="Shoots">

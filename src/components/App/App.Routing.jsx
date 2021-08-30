@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { context as authContext } from "../../hooks/useAuth";
 
-import { Demos } from "./App.Demos";
+import { Demos } from "./App.Routing.Demo";
 import { Auth } from "./App.Routing.Auth";
 import { Create } from "./App.Routing.Create";
 import { Sync } from "./App.Routing.Sync";

@@ -48,17 +48,17 @@ const useAuthInsideProvider = () => {
     const [success, payload] = await users.changeToOnlineAccount(
       email,
       password
- );
+    );
 
- if (success) {
-  setUser({
-    ...user,
-    type: "verifying",
-  });
+    if (success) {
+      setUser({
+        ...user,
+        type: "verifying",
+      });
 
-    return [success, payload];
+      return [success, payload];
+    }
   };
-
   const cancelVerification = async () => {
     const [success, payload] = await users.cancelVerification();
 
@@ -125,16 +125,13 @@ const useAuthInsideProvider = () => {
  * @type {Context<auth>}
  */
 
- const context = createContext();
+export const context = createContext();
 
- const Provider = (props) => {
+export const Provider = (props) => {
   const { children } = props;
   const auth = useAuthInsideProvider();
 
   return <context.Provider value={auth}>{children}</context.Provider>;
-}
-}
-export default context
-// export const {children} = props;
-// export auth = useAuthInsideProvider()
-// }
+};
+
+export default context;

@@ -32,7 +32,7 @@ export const Link = (props) => {
 
   if (typeof action !== "string")
     return (
-      <Base as="button" $inverse={inverse} as="button" onClick={action}>
+      <Base as="button" $inverse={inverse} onClick={action}>
         <Text $inverse={inverse} size="s">
           {children}
         </Text>
