@@ -2,44 +2,41 @@ import React from "react";
 import styled from "styled-components";
 import { Button as MuiButton } from "@material-ui/core";
 import { tokens } from "../../data/tokens";
-import { Link } from "react-dom";
+import { Link } from "react-router-dom";
+import '../../types/action'
 
 const COLORS = {
   white: `rgb(${tokens.colors.white})`,
   turquoise: `rgb(${tokens.colors.turquoise})`,
   black: `rgb(${tokens.colors.black})`,
   none: "transparent",
-  turquoiseSubtler: `rgb(${tokens.colors.turquoise}, ${
-    (tokens.opacity.subtler)
-  })`,
-  turquoiseStronger: `rgb(${tokens.colors.turquoise}, ${
-    (tokens.opacity.stronger)
-  })`,
+  turquoiseSubtler: `rgb(${tokens.colors.turquoise}, ${tokens.opacity.subtler})`,
+  turquoiseStronger: `rgb(${tokens.colors.turquoise}, ${tokens.opacity.stronger})`,
   whiteSubtler: `rgb(${tokens.colors.white}, ${tokens.opacity.subtler})`,
   blackStronger: `rgb(${tokens.colors.white}, ${tokens.opacity.stronger})`,
 };
 
-const calcBackground = ({ importance, inverse }) => {
-  if (importance === "primary" && inverse) return COLORS.white;
-  if (inverse || importance === "secondary") return COLORS.none;
+const calcBackground = ({ importance, $inverse }) => {
+  if (importance === "primary" && $inverse) return COLORS.white;
+  if ($inverse || importance === "secondary") return COLORS.none;
   return COLORS.turquoise;
 };
 
-const calcColor = ({ importance, inverse }) => {
-  if (importance === "primary" && inverse) return COLORS.turquoise;
-  if (inverse || importance === "primary") return COLORS.white;
+const calcColor = ({ importance, $inverse }) => {
+  if (importance === "primary" && $inverse) return COLORS.turquoise;
+  if ($inverse || importance === "primary") return COLORS.white;
   return COLORS.turquoise;
 };
 
-const calcBorder = ({ importance, inverse }) => {
+const calcBorder = ({ importance, $inverse }) => {
   if (importance === "primary") return `1px solid ${COLORS.none}`;
-  if (inverse) return `1px solid ${COLORS.white}`;
+  if ($inverse) return `1px solid ${COLORS.white}`;
   return `1px solid ${COLORS.turquoise}`;
 };
 
-const calcHover = ({ importance, inverse }) => {
-  if (importance === "primary" && inverse) return COLORS.whiteStronger;
-  if (inverse) return COLORS.whiteSubtler;
+const calcHover = ({ importance, $inverse }) => {
+  if (importance === "primary" && $inverse) return COLORS.whiteStronger;
+  if ($inverse) return COLORS.whiteSubtler;
   if (importance === "primary") return COLORS.turquoiseStronger;
   return COLORS.turquoiseSubtler;
 };
@@ -75,7 +72,7 @@ const StyledButton = styled(MuiButton)`
  * @property {JSX.Element} children
  * @property {'primary' | 'secondary'} importance
  * @property {boolean} inverse
- * @property {string | function} action
+ * @property {action} action
  */
 
 /**
@@ -86,6 +83,7 @@ const StyledButton = styled(MuiButton)`
 export const Button = (props) => {
   const {
     children,
+    detail = {},
     inverse,
     importance = "secondary",
     action,
@@ -93,16 +91,16 @@ export const Button = (props) => {
   } = props;
 
   const variant = importance === "primary" ? "contained" : "outlined";
-  const actionProps = calcActionProps(action);
+  const actionProps = calcActionProps(action, detail);
 
   return (
     <StyledButton
-      inverse={inverse}
+      $inverse={inverse}
       importance={importance}
       children={children}
-      {...actionProps}
       fullWidth={full}
       variant={variant}
+      {...actionProps}
     />
   );
 };

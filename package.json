@@ -9,22 +9,25 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "date-fns": "^2.23.0",
     "gotrue-js": "^0.9.29",
     "idb": "^6.1.2",
+    "md5": "^2.3.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-dropzone": "^11.3.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-use": "^17.2.4",
     "styled-components": "^5.3.0",
+    "uuid": "^8.3.2",
     "validator": "^13.6.0",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "serve": "react-scripts build && serve ./build"
   },
   "eslintConfig": {
     "extends": [
