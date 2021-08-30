@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout } from '../../components/Layout'
+import { Layout } from '../../../components/Layout'
 
 export const LandingPage = () => {
   return (
@@ -7,7 +7,7 @@ export const LandingPage = () => {
       inverse
       title="Biz App"
       secondary={["Sign In", "/auth/signin"]}
-      primary={["Create Account", "/auth/register"]}
+      primary={["Create Account", "/create/name"]}
     />
      
   );

@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import validator from "validator";
-import { context as authContext } from "../../hooks/useAuth";
+import { context as authContext } from "../../../hooks/useAuth";
 import { useHistory } from "react-router-dom";
 
 export const useNewAccount = () => {
