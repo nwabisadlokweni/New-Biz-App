@@ -127,11 +127,14 @@ const useAuthInsideProvider = () => {
 
  const context = createContext();
 
-export const Provider = (props) => {
+ const Provider = (props) => {
   const { children } = props;
   const auth = useAuthInsideProvider();
 
   return <context.Provider value={auth}>{children}</context.Provider>;
-};
-
+}
+}
 export default context
+// export const {children} = props;
+// export auth = useAuthInsideProvider()
+// }
