@@ -5,7 +5,7 @@ import { CreateEmail } from '../../views/create/CreateEmail'
 import { CreateName } from '../../views/create/CreateName'
 import { CreatePassword } from '../../views/create/CreatePassword'
 import { CreatePhoto } from '../../views/create/CreatePhoto'
-import { EnableSync } from '../../views/create/EnableSync'
+
 
 export const Create = () => {
   return(
@@ -18,9 +18,7 @@ export const Create = () => {
         <CreatePhoto />
       </Route>
 
-      <Route path="/create/sync">
-        <EnableSync />
-      </Route>
+
 
       <Route path="/create/email">
         <CreateEmail />

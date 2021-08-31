@@ -11,7 +11,7 @@ import { Demo as LinkDemo } from "../Link/Link.Demo";
 import { Demo as TextDemo } from "../Text/Text.Demo";
 import { Demo as AlertDemo } from "../Alert/Alert.Demo";
 import { Demo as ItemPreview } from "../ItemPreview/ItemPreview.Demo";
-
+import { Demo as CustomIcon } from "../CustomIcon/CustomIcon.Demo";
 
 
 export const Demos = () => {
@@ -19,6 +19,10 @@ export const Demos = () => {
     <Switch>
       <Route path="/demo/button">
         <ButtonDemo />
+      </Route>
+
+      <Route path="/demo/icon">
+        <CustomIcon />
       </Route>
 
       <Route path="/demo/checkbox">
@@ -32,6 +36,7 @@ export const Demos = () => {
       <Route path="/demo/input">
         <InputDemo />
       </Route>
+
 
       <Route path="/demo/layout">
         <LayoutDemo />
