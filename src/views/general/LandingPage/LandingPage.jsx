@@ -7,7 +7,7 @@ export const LandingPage = () => {
       inverse
       title="Biz App"
       secondary={["Sign In", "/auth/signin"]}
-      primary={["Create Account", "/auth/register"]}
+      primary={["Create Account", "/create/name"]}
     />
      
   );
