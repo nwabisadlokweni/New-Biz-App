@@ -36,8 +36,8 @@ export const createDbStore = (name, keys = []) => {
    */
   const getMeta = async (key) => {
     const db = await dbRequest;
-    const { value } = await db.get("meta", key);
-    return value
+    const  response  = await db.get("meta", key);
+    return response && response.value
   };
 
   /**

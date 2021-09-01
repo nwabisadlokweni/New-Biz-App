@@ -6,6 +6,7 @@ import { HashRouter } from "react-router-dom";
 import { Routing } from "./App.Routing";
 import { Provider as AuthProvider } from "../../hooks/useAuth";
 
+console.log(AuthProvider)
 // const fireAlert = (registration) => {
 //   registration.showNotification("Hi there!", {
 //     body: "This is a description with more details",
