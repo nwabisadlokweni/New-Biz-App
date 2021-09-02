@@ -19,7 +19,7 @@ export const useCreatePhoto = () => {
     const save = () => {
         if(!image) return setAlert('noImage')
         setAlert('saving')
-        history.push('/create/sync')
+        history.push('/shoots/addshoot')
     }
 
     const uploadImage = ([file]) => {

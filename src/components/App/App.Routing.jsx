@@ -8,6 +8,7 @@ import { Create } from "./App.Routing.Create";
 import { Sync } from "./App.Routing.Sync";
 import { Items } from "./App.Routing.Items";
 import { General } from "./App.Routing.General";
+import { Shoots } from "./App.Routing.Shoots";
 
 export const Routing = () => {
   const { loading, user } = useContext(authContext);
@@ -20,6 +21,10 @@ export const Routing = () => {
     <Switch>
       <Route path="/demo">
         <Demos />
+      </Route>
+
+      <Route path="/shoots">
+        <Shoots />
       </Route>
 
       <Route path="/items">{user ? <Items /> : <Redirect to="/" />}</Route>
