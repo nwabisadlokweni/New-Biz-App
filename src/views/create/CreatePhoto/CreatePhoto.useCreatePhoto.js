@@ -23,8 +23,8 @@ export const useCreatePhoto = () => {
     }
 
     const uploadImage = ([file]) => {
-        const imageUrl = URL.createObjectURL(file)
-        setImage(imageUrl)
+        const image = URL.createObjectURL(file)
+        setImage(image)
         setPhase('display')
     }
 

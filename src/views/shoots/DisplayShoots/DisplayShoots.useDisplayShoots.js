@@ -6,7 +6,7 @@ import fakerE from "faker-extra";
 const SHOOT_TYPES = ["Wedding", "Babyshower", "Profile", "Birthday"];
 
 const FAKE_PROPS = {
-  shoots: fakerE.array(20, () => ({
+  shoots: fakerE.array(8, () => ({
     id: faker.datatype.uuid(),
     customer: faker.name.findName(),
     date: faker.date.future(),

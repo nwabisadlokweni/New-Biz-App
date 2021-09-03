@@ -24,8 +24,8 @@ const Image = styled(ButtonBase)`
   border-radius: ${tokens.radius.strong};
   background-polsition: 50% 50%;
   background-size: cover;
-  background-image: ${({ imageUrl }) =>
-    imageUrl ? `url(${imageUrl})` : "none"};
+  background-image: ${({ image }) =>
+    image ? `url(${image})` : "none"};
   background-color: rgba(
     ${tokens.colors.black},
     ${({ isDragging }) => tokens.opacity[isDragging ? "subtle" : "subtler"]}
