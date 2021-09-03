@@ -5,8 +5,6 @@ import useDisplayShoots from "../DisplayShoots/DisplayShoots.useDisplayShoots"
 import Delete from "../DisplayShoots/DisplayShoots.Delete"
 import Edit from "../DisplayShoots/DisplayShoots.Edit"
 import Add from "../DisplayShoots/DisplayShoots.Add"
-import { Layout } from "../../../components/Layout";
-import { Text } from "../../../components/Text";
 import {Edit as EditIcon, Delete as DeleteIcon} from "@material-ui/icons";
 import { Button, Card, Select, MenuItem, TextField } from "@material-ui/core";
 import { format } from "date-fns";

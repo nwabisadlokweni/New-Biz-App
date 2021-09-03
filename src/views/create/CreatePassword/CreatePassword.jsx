@@ -13,7 +13,7 @@ const InputWrap = styled.div`
 `;
 
 export const CreatePassword = () => {
-    const { password, setPassword, save, alert} = useCreatePassword();
+    const { password, setPassword, alert} = useCreatePassword();
     
     return (
         <Layout

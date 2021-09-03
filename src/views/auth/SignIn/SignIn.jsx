@@ -16,7 +16,6 @@ export const SignIn = () => {
     password,
     setEmail,
     setPassword,
-    signIn,
     alert,
   } = useSignIn();
 

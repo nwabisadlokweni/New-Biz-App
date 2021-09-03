@@ -3,8 +3,7 @@ import styled from "styled-components";
 import { ButtonBase } from "@material-ui/core";
 import {
   CameraAlt as CameraIcon,
-  EditLocation,
-  OpenInNew,
+  
 } from "@material-ui/icons";
 import { useDropzone } from "react-dropzone";
 
@@ -52,9 +51,7 @@ export const CreatePhoto = () => {
   const { image, uploadImage, alert, save, phase, edit, cancel } =
     useCreatePhoto();
 
-  const onDrop = (file) => {
-    console.log(file);
-  };
+  
 
   const { getRootProps, getInputProps, isDragActive, open } = useDropzone({
     onDrop: uploadImage,
