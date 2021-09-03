@@ -65,7 +65,7 @@ const applySorting = (shoots, sorting, search) => {
   }
   throw new Error("Invalid sorting supplied");
 };
-
+//
 export const DisplayShoots = () => {  
   const [{shoots, alert, editing, deleting, adding}, actions] = useDisplayShoots();
 
