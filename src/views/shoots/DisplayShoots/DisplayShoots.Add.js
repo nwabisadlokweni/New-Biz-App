@@ -56,6 +56,7 @@ export const Add = (props) => {
     alert,
   } = props;
 
+  console.log(onCustomerChange)
   const handleCustomerChange = (event) => onCustomerChange(event.target.value);
   const handleDateChange = (event) => onDateChange(new Date(event.target.value));
   const handleTypeChange = (event) => onTypeChange(event.target.value);

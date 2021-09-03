@@ -51,10 +51,12 @@ const applySorting = (shoots, sorting, search) => {
     search.length < 3
       ? shoots
       : shoots.filter(
-          ({ customer, type }) =>
-            test(customer) ||
-            test(type)
+          ({ customer, type }) => {
+            console.log(customer, type)
+            return customer.includes(search) || type.includes(search)
+          }
         );
+      
   if (sorting === "date-closest-furthest") {
     return filteredShoots.sort((a, b) => a.date.getTime() - b.date.getTime());
   }
@@ -63,8 +65,8 @@ const applySorting = (shoots, sorting, search) => {
   }
   throw new Error("Invalid sorting supplied");
 };
-export const DisplayShoots = () => {
-  
+
+export const DisplayShoots = () => {  
   const [{shoots, alert, editing, deleting, adding}, actions] = useDisplayShoots();
 
   const [sorting, setSorting] = useState("date-closest-furthest");
@@ -75,11 +77,12 @@ export const DisplayShoots = () => {
 
   useEffect(() => {
     setDisplayedShoots(applySorting(shoots, sorting, search));
-  });
+  }, [search]);
 
   if(adding){
     return (
       <div>
+        123
         <Add
           date={adding.date}
           onDateChange={(newValue) => actions.update('date',newValue)}
@@ -163,7 +166,7 @@ export const DisplayShoots = () => {
         </Select>
       </Controls>
       <List>
-        {shoots.map(({ id, customer, date, type }) => {
+        {displayedShoots.map(({ id, customer, date, type }) => {
           return (
             <StyledCard key={id}>
               <div>

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { context as authContext } from "../../hooks/useAuth";
-
+import { Profile } from "../../views/Profile"
 import { Demos } from "./App.Routing.Demos";
 import { Auth } from "./App.Routing.Auth";
 import { Create } from "./App.Routing.Create";
@@ -19,6 +19,9 @@ export const Routing = () => {
 
   return (
     <Switch>
+      <Route path="/profile">
+        <Profile />
+      </Route>
       <Route path="/demo">
         <Demos />
       </Route>

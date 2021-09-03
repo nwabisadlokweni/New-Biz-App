@@ -82,7 +82,7 @@ export const CreatePhoto = () => {
       title="Photo"
       form
       primary={["Add Photo", () => open()]}
-      secondary={["Back", "/"]}
+      secondary={["Cancel", cancel]}
       alert={ALERTS[alert]}
     >
       <Text size="s">Provide a photo to be asociated with this account</Text>

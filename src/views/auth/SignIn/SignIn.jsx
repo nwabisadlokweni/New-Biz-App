@@ -28,7 +28,7 @@ console.log(alert)
       title="Sign In"
       alert={alert ? ALERTS[alert] : undefined}
       secondary={["Cancel", isResting && "/"]}
-      primary={["Sign In", isResting && signIn]}
+      primary={["Sign In", isResting && "/shoots/displayshoots"]}
    extra={['Forgot Password?', isResting && '/auth/reset']}
    >
       <InputWrapper>

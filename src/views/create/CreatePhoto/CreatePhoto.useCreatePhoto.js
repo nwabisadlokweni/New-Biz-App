@@ -19,7 +19,7 @@ export const useCreatePhoto = () => {
     const save = () => {
         if(!image) return setAlert('noImage')
         setAlert('saving')
-        history.push('/shoots/addshoot')
+        history.push('/shoots/displayshoots')
     }
 
     const uploadImage = ([file]) => {
@@ -28,7 +28,9 @@ export const useCreatePhoto = () => {
         setPhase('display')
     }
 
-    const edit = () => setPhase('editing')
+    const edit = () => {
+        setImage(null)
+        setPhase('editing')}
     const cancel = () => setPhase('display')
     return {
         uploadImage,
@@ -36,6 +38,8 @@ export const useCreatePhoto = () => {
         image,
         alert,
         save,
+        edit,
+        cancel,
     }
 }
 
