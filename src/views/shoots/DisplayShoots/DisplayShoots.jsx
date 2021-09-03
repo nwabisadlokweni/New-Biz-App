@@ -77,7 +77,7 @@ export const DisplayShoots = () => {
 
   useEffect(() => {
     setDisplayedShoots(applySorting(shoots, sorting, search));
-  }, [search]);
+  }, [search, sorting, shoots]);
 
   if(adding){
     return (

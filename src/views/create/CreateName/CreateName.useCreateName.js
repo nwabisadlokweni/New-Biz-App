@@ -9,7 +9,7 @@ export const useCreateName = () => {
     const save = () => {
         if(!name || name.trim() === '') return setAlert('noName')
         setAlert('saving')
-        history.push('/create/photo')
+        history.push('/create/password')
     }
     return {
         setName,

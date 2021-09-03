@@ -2,16 +2,18 @@ import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
 export const useCreatePassword = () => {
-    const [name, setName] = useState('')
+    const history = useHistory();
+    const [password, setPassword] = useState('')
     const [alert, setAlert] = useState(null)
 
     const save = () => {
-        if(!name || name.trim() === '') return setAlert('noName')
-        history.push('/auth/photo')
+        if(!password || password.trim() === '') return setAlert('noPassword')
+        setAlert('saving')
+        history.push('/create/photo')
     }
     return {
-        setName,
-        name,
+        setPassword,
+        password,
         alert,
         save,
     }
